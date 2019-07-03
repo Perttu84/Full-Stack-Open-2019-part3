@@ -1,0 +1,19 @@
+{
+  "name": "puhelinluettelo-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Perttu84/Full-Stack-Open-2019-part3.git"
+  },
+  "author": "Perttu Punakallio",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Perttu84/Full-Stack-Open-2019-part3/issues"
+  },
+  "homepage": "https://github.com/Perttu84/Full-Stack-Open-2019-part3#readme"
+}
