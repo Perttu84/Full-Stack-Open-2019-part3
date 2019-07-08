@@ -62,6 +62,32 @@ app.post('/api/persons', (request, response) => {
 	})
 })
 
+app.put('/api/persons/:id', (request, response, next) => {
+  const body = request.body
+
+  const person = {
+    name: body.name,
+    number: body.number,
+  }
+
+  Person.findByIdAndUpdate(request.params.id, person, { new: true })
+    .then(updatedPerson => {
+      response.json(updatedPerson.toJSON())
+    })
+    .catch(error => next(error))
+})
+
+app.get('/info', (request, response) => {
+  const date = new Date()
+  Person.find({}).then(persons => {
+  	const personCount = persons.map(person => person.toJSON()).length
+  	response.send(
+  	`<div>Phonebook has info for ${personCount} people</div>
+  	 <div>${date}</div>`
+  	)
+  })
+})
+
 const unknownEndpoint = (request, response) => {
   response.status(404).send({ error: 'unknown endpoint' })
 }
@@ -79,14 +105,6 @@ const errorHandler = (error, request, response, next) => {
 }
 
 app.use(errorHandler)
-
-app.get('/info', (request, response) => {
-  const numberOfPersons = persons.length
-  const date = new Date()
-  response.send(
-  	`<div>Phonebook has info for ${numberOfPersons} people</div>
-  	 <div>${date}</div>`)
-})
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
