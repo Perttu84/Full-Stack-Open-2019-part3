@@ -56,13 +56,11 @@ app.post('/api/persons', (request, response, next) => {
 
 app.put('/api/persons/:id', (request, response, next) => {
   const body = request.body
-
   const person = {
-    name: body.name,
     number: body.number,
   }
 
-  Person.findByIdAndUpdate(request.params.id, person, { new: true, runValidators: true })
+  Person.findOneAndUpdate({ _id: request.params.id}, person, { new: true, runValidators: true, context: 'query' })
     .then(updatedPerson => {
       response.json(updatedPerson.toJSON())
     })
@@ -87,7 +85,6 @@ const unknownEndpoint = (request, response) => {
 app.use(unknownEndpoint)
 
 const errorHandler = (error, request, response, next) => {
-  console.log("meneeko tanne")
   console.error(error.message)
 
   if (error.name === 'CastError' && error.kind == 'ObjectId') {
